@@ -1,0 +1,35 @@
+plugins {
+    id "java"
+    id "org.jetbrains.intellij" version "1.13.0"
+    id "org.jetbrains.changelog" version "2.0.0"
+}
+
+repositories {
+    mavenCentral()
+}
+
+group = pluginGroup
+version = pluginVersion
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+intellij {
+    version = platformVersion
+    type = platformType
+    pluginName
+    plugins = ["com.intellij.java"]
+}
+
+changelog {
+    repositoryUrl = pluginRepositoryUrl
+}
+
+patchPluginXml {
+    version = pluginVersion
+    sinceBuild = pluginSinceBuild
+    untilBuild = pluginUntilBuild
+
+    pluginDescription = file(descriptionFile).text
+    changeNotes = file(changesFile).text
+}

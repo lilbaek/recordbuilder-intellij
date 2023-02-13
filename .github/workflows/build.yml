@@ -16,7 +16,7 @@ name: Build
 on:
   # Trigger the workflow on pushes to only the 'main' branch (this avoids duplicate checks being run e.g. for dependabot pull requests)
   push:
-    branches: [main]
+    branches: [xxxx]
   # Trigger the workflow on any pull request
   pull_request:
 
@@ -48,12 +48,12 @@ jobs:
       - name: Gradle Wrapper Validation
         uses: gradle/wrapper-validation-action@v1.0.5
 
-      # Setup Java 11 environment for the next steps
+      # Setup Java 17 environment for the next steps
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
           distribution: zulu
-          java-version: 11
+          java-version: 17
 
       # Set environment variables
       - name: Export Properties
@@ -79,20 +79,6 @@ jobs:
       - name: Run Tests
         run: ./gradlew check
 
-      # Collect Tests Result of failed tests
-      - name: Collect Tests Result
-        if: ${{ failure() }}
-        uses: actions/upload-artifact@v3
-        with:
-          name: tests-result
-          path: ${{ github.workspace }}/build/reports/tests
-
-      # Upload Kover report to CodeCov
-      - name: Upload Code Coverage Report
-        uses: codecov/codecov-action@v3
-        with:
-          files: ${{ github.workspace }}/build/reports/kover/xml/report.xml
-
       # Cache Plugin Verifier IDEs
       - name: Setup Plugin Verifier IDEs Cache
         uses: actions/cache@v3
@@ -111,10 +97,6 @@ jobs:
         with:
           name: pluginVerifier-result
           path: ${{ github.workspace }}/build/reports/pluginVerifier
-
-      # Run Qodana inspections
-      - name: Qodana - Code Inspection
-        uses: JetBrains/qodana-action@v2022.3.0
 
       # Prepare plugin archive content for creating artifact
       - name: Prepare Plugin Artifact
