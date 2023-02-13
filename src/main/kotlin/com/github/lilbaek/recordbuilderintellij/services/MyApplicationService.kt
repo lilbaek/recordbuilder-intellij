@@ -1,6 +1,6 @@
-package org.jetbrains.plugins.template.services
+package com.github.lilbaek.recordbuilderintellij.services
 
-import org.jetbrains.plugins.template.MyBundle
+import com.github.lilbaek.recordbuilderintellij.MyBundle
 
 class MyApplicationService {
 
