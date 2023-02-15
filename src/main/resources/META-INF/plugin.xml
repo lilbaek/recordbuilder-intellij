@@ -4,15 +4,18 @@
     <name>RecordBuilder</name>
     <vendor>lilbaek</vendor>
 
+    <resource-bundle>messages.RecordBuilderBundle</resource-bundle>
+
+    <description><![CDATA[ Description will be added by gradle build]]></description>
+    <category>Tools Integration</category>
+
+    <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.lilbaek.recordbuilder.services.BuilderApplicationService"/>
-        <projectService serviceImplementation="com.lilbaek.recordbuilder.services.BuilderProjectService"/>
+        <applicationService serviceImplementation="com.lilbaek.recordbuilder.processor.handler.BuilderHandler"/>
+        <java.elementFinder implementation="com.lilbaek.recordbuilder.finder.RecordBuilderFinder"/>
+        <java.shortNamesCache implementation="com.lilbaek.recordbuilder.finder.RecordBuilderShortNamesCache"/>
     </extensions>
-
-    <applicationListeners>
-        <listener class="com.lilbaek.recordbuilder.listeners.BuilderProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
 </idea-plugin>
